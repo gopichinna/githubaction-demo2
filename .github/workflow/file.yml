@@ -1,0 +1,32 @@
+name: dockerloginDEVQA
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  LogintodockerhubDEV:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+    - uses: actions/checkout@v3
+    - name: docker login
+      uses: docker/login-action@v2.1.0
+      with:
+       registry: registry-1.docker.io
+       username: ${{secrets.DOCKERHUBUSERNAME}}
+       password: ${{secrets.DOCKERHUBPASSWORD}}
+  LogintodockerhubQA:
+    runs-on: ubuntu-latest
+    environment: qa
+    steps:
+    - uses: actions/checkout@v3
+    - name: docker login
+      uses: docker/login-action@v2.1.0
+      with:
+       registry: registry-1.docker.io
+       username: ${{secrets.DOCKERHUBUSERNAME}}
+       password: ${{secrets.DOCKERHUBPASSWORD}}
